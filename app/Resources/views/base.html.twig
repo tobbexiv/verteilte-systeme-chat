@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html class="uk-height-1-1">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link href="{{ asset('css/uikit.gradient.min.css') }}" rel="stylesheet" />
         {% block stylesheets %}{% endblock %}
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="{{ asset('js/uikit.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         {% block javascripts %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
-        <div class="uk-container uk-container-center">
+    <body class="uk-height-1-1">
+        <div class="uk-container uk-container-center uk-height-1-1 uk-padding">
             <h1>{{ block('title') }}</h1>
             {% block body %}Nothing to see here O.o{% endblock %}
         </div>

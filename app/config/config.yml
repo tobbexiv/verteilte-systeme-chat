@@ -42,6 +42,7 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
 # Doctrine Configuration
 doctrine:
@@ -72,3 +73,17 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# FOS REST configuration
+fos_rest:
+    routing_loader:
+        include_format: false
+        default_format: json
+
+    exception:
+        enabled: true
+        messages:
+            'Symfony\Component\HttpKernel\Exception\HttpException': true
+
+    service:
+        inflector: appbundle.util.inflector

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block stylesheets %}
+<link href="{{ asset('css/components/notify.gradient.min.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('js/components/notify.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/user.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<ul class="uk-tab" data-uk-tab="{connect:'#loginRegister'}">
+    <li class="uk-active"><a href="#">Login</a></li>
+    <li><a href="#">Register</a></li>
+</ul>
+<ul id="loginRegister" class="uk-switcher uk-margin">
+    <li>{% include 'AppBundle:User:login.html.twig' %}</li>
+    <li>{% include 'AppBundle:User:register.html.twig' %}</li>
+</ul>
+{% endblock %}

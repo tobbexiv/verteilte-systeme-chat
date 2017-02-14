@@ -5,4 +5,9 @@ server_comunication:
 
 app:
     resource: "@AppBundle/Controller/"
-    type:     annotation
+    type:     rest
+    options:
+        expose: true
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

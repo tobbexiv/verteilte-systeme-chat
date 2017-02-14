@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat{% endblock %}
+
+{% block stylesheets %}
+<link href="{{ asset('css/components/notify.gradient.min.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('js/components/notify.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/app/chat.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<div id="chatWrapper" class="uk-grid uk-overflow-container uk-margin-bottom uk-display-block" style="height: calc(100% - 120px)"></div>
+<form id="chatInput" class="uk-form">
+    <div class="uk-form-icon">
+        <i id="chatAction" class="uk-icon-pencil"></i>
+        <input id="chatText" type="text" placeholder="Text" class="uk-form-width-large">
+    </div>
+    <button type="submit" class="uk-button uk-button-primary">Send</button>
+    <a class="uk-button uk-button-default" href="{{ path('user_get_logout') }}">Logout</a>
+</form>
+{% endblock %}
