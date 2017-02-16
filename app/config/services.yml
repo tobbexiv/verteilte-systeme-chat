@@ -10,3 +10,9 @@ services:
 
     appbundle.util.inflector:
         class: AppBundle\Util\Inflector\NoopInflector
+
+    appbundle.exception_subscriber:
+        class: AppBundle\EventSubscriber\ServerCommunicationSubscriber
+        arguments: ['@event_dispatcher', '@doctrine.orm.entity_manager']
+        tags:
+            - { name: kernel.event_subscriber }

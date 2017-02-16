@@ -79,9 +79,9 @@ class Message
      *
      * @return string
      */
-    public function getUser()
+    public function getUsername()
     {
-        return $this->user;
+        return $this->user->getUsername();
     }
 
     /**

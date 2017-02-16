@@ -3,8 +3,10 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use ServerCommunicationBundle\Event\ServerCommunicationEvent;
 use AppBundle\Entity\Message;
 use AppBundle\Entity\User;
 
@@ -50,11 +52,16 @@ class ChatApiController extends FOSRestController
     }
     
     public function postMessageAction(Request $request) {
-        if(!$this->get('session')->has('username')) {
+        $session = $this->get('session');
+        
+        if(!$session->has('username')) {
             $view = $this->view([ 'redirectRoute' => 'user_get' ], 200);
         } else {
-            $session = $this->get('session');
             $data = $request->request;
+            
+            if (!$data->get('text')) {
+                throw new HttpException(400, "Please enter a text for your message!");
+            }
             
             $repository = $this->getDoctrine()->getRepository('AppBundle:User');
             
@@ -68,6 +75,9 @@ class ChatApiController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
+            
+            $event = new ServerCommunicationEvent('message', $message);
+            $this->get('event_dispatcher')->dispatch('serverCommunication.send', $event);
             
             $view = $this->view($message, 200);
         }

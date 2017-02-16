@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use ServerCommunicationBundle\Event\ServerCommunicationEvent;
 use AppBundle\Entity\User;
 
 /**
@@ -37,7 +38,7 @@ class UserApiController extends FOSRestController {
         return $this->handleView($view);
     }
     
-    public function postRegisterAction(Request $request) {
+    public function putUserAction(Request $request) {
         if($this->get('session')->has('username')) {
             $view = $this->view([ 'redirectRoute' => 'chat_get' ], 200);
         } else {
@@ -51,6 +52,8 @@ class UserApiController extends FOSRestController {
                 throw new HttpException(409, 'Username is already in use.');
             } elseif ($data->get('password') != $data->get('confirmPassword')) {
                 throw new HttpException(400, 'The provided passwords are not equal');
+            } elseif (!$data->get('username')) {
+                throw new HttpException(400, 'You must enter a username');
             } else {
                 $user = new User();
                 $user->setUsername($data->get('username'))
@@ -61,6 +64,9 @@ class UserApiController extends FOSRestController {
                 $em->flush();
                 
                 $this->get('session')->set('username', $user->getUsername());
+                
+                $event = new ServerCommunicationEvent('user', $user);
+                $this->get('event_dispatcher')->dispatch('serverCommunication.send', $event);
                 
                 $view = $this->view([ 'redirectRoute' => 'chat_get' ], 200);
             }

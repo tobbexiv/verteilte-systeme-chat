@@ -60,6 +60,18 @@ class User
 
         return $this;
     }
+    
+    /**
+     * Get password
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
 
     /**
      * Check password and return if it matches.

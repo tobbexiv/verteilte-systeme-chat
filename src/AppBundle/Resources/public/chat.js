@@ -31,7 +31,7 @@ $(function () {
             }
             
             var message = $messageTemplate.replace(/%id%/gi, data.id)
-                                          .replace(/%user%/gi, data.user.username)
+                                          .replace(/%user%/gi, data.username)
                                           .replace(/%sent%/gi, sent.toLocaleString())
                                           .replace(/%text%/gi, data.text);
             
@@ -73,7 +73,6 @@ $(function () {
             }).done(function(data) {
                 _checkForRedirect(data);
                 _createNewMessageNode(data);
-                _toggleChatTextStatus();
                 $chatText.val('');
             }).fail(function(error) {
                 UIkit.notify({
@@ -82,6 +81,7 @@ $(function () {
                     timeout : 5000,
                     pos     : 'top-center'
                 });
+            }).always(function() {
                 _toggleChatTextStatus();
             });
         }

@@ -52,11 +52,11 @@ $(function () {
         
         if(data.username && data.password && data.confirmPassword) {
             $.ajax({
-                url:         Routing.generate('user_api_post_register'),
+                url:         Routing.generate('user_api_put_user'),
                 contentType: 'application/json; charset=utf-8',
                 dataType:    'json',
                 data:        JSON.stringify(data),
-                method:      'post'
+                method:      'put',
             }).done(function(data) {
                 _checkForRedirect(data);
             }).fail(function(error) {
