@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Server Communication Servers{% endblock %}
+
+{% block stylesheets %}
+<link href="{{ asset('css/components/notify.gradient.min.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('js/components/notify.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/serverCommunication/server.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<h2>General</h2>
+<form class="uk-form uk-form-horizontal">
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="secureToken">Secure token</label>
+        <div class="uk-form-controls">
+            <input id="secureToken" type="password" placeholder="Secure token" class="uk-form-width-large">
+        </div>
+    </div>
+    <div class="uk-form-row">
+        <div class="uk-form-controls">
+            <button id="refreshList" type="submit" class="uk-button uk-button-primary">Refresh Server List</button>
+        </div>
+    </div>
+</form>
+<h2>Servers</h2>
+<ul id="serverWrapper" class="uk-list uk-list-striped"></ul>
+<h2>Add new Server</h2>
+<form id="newServer" class="uk-form uk-form-horizontal">
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="uri">Server URI</label>
+        <div class="uk-form-controls">
+            <input id="uri" type="text" placeholder="Server URI" class="uk-form-width-large">
+        </div>
+    </div>
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="serverToken">Server token</label>
+        <div class="uk-form-controls">
+            <input id="serverToken" type="password" placeholder="Server token" class="uk-form-width-large">
+        </div>
+    </div>
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="serverTokenConfirm">Confirm server token</label>
+        <div class="uk-form-controls">
+            <input id="serverTokenConfirm" type="password" placeholder="Confirm server token" class="uk-form-width-large">
+        </div>
+    </div>
+    <div class="uk-form-row">
+        <div class="uk-form-controls">
+            <button type="submit" class="uk-button uk-button-primary">Add</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

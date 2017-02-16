@@ -1,0 +1,10 @@
+services:
+#    server_comunication.example:
+#        class: ServerCommunicationBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    servercommunicationbundle.exception_subscriber:
+        class: ServerCommunicationBundle\EventSubscriber\ServerCommunicationSendSubscriber
+        arguments: ['@event_dispatcher', '@doctrine.orm.entity_manager', '@router', '@buzz', '@serializer']
+        tags:
+            - { name: kernel.event_subscriber }

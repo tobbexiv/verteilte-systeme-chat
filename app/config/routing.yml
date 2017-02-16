@@ -1,7 +1,9 @@
-server_comunication:
-    resource: "@ServerComunicationBundle/Controller/"
-    type:     annotation
+server_communication:
+    resource: "@ServerCommunicationBundle/Controller/"
+    type:     rest
     prefix:   /server
+    options:
+        expose: true
 
 app:
     resource: "@AppBundle/Controller/"
